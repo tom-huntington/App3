@@ -22,19 +22,19 @@ namespace winrt::App3::implementation
         throw hresult_not_implemented();
     }
 
-    void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
+void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
+{
+    auto handler = [&]()-> winrt::fire_and_forget
     {
-        auto handler = [&]()-> winrt::fire_and_forget
-        {
-#if 1
-            co_await winrt::resume_after(std::chrono::seconds(1));
-            // access this pointer
-            auto action = DispatcherQueue(); // BOOM
+#if 0
+        co_await winrt::resume_after(std::chrono::seconds(1));
+        // access this pointer
+        auto action = DispatcherQueue(); // BOOM
 #else
-            co_await winrt::resume_background(); 
-            auto action = DispatcherQueue(); // no error
+        co_await winrt::resume_background(); 
+        auto action = DispatcherQueue(); // no error
 #endif
-        };
-        handler();
-    }
+    };
+    handler();
+}
 }
